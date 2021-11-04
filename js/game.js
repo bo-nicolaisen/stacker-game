@@ -8,6 +8,7 @@ let animSpeed=0.1;
 let origBoxSize = 4;
 let camHeight=3;
 let gameStack = [];
+let activeObject=0;
 
 let gameStarted = false;
 
@@ -23,15 +24,19 @@ window.onclick = e => {
 
     }
     else {
+
      
-        addLayer(-10, 0, origBoxSize, origBoxSize, "x");
+
+       if(activeObject.direction=="x"){
+        addLayer(0,-10, origBoxSize, origBoxSize,"z");
+       }
+       else{
+        addLayer(-10,0, origBoxSize, origBoxSize, "x");
+       }
+      
+        
     }
 }
-
-
-
-
-
 
 
 
@@ -44,20 +49,22 @@ function initGame() {
     setupLights();
     setupCamera();
     //base layer
-    addLayer(0, 0, origBoxSize, origBoxSize);
+    addLayer(0, 0, origBoxSize, origBoxSize,"first");
 
     // first mover
-    addLayer(-10, 0, origBoxSize, origBoxSize, "x");
+    addLayer(-10, 0, origBoxSize, origBoxSize,"x");
 
     document.body.appendChild(renderer.domElement);
 
     renderer.setAnimationLoop(gameLoop);
 }
 
+
 function addLayer(x, z, width, depth, direction) {
+
     let y = boxHeight * gameStack.length;
 
-    let layer = generateBox(x, y, z, width, depth);
+let layer = generateBox(x, y, z, width, depth);
 
     layer.direction = direction;
     gameStack.push(layer);
@@ -66,7 +73,7 @@ function addLayer(x, z, width, depth, direction) {
 
 
 function generateBox(x, y, z, width, depth) {
-
+console.log("box");
     let geo = new THREE.BoxGeometry(width, boxHeight, depth);
     let color = new THREE.Color(`hsl(${30 + gameStack.length * 4},100%,50%)`);
     let mat = new THREE.MeshLambertMaterial({ color });
@@ -103,7 +110,7 @@ function setupCamera() {
 function gameLoop() {
 
     //move element
-let activeObject=gameStack[gameStack.length-1];
+ activeObject=gameStack[gameStack.length-1];
 let camtarget=gameStack[gameStack.length-2];
 
 activeObject.threejs.position[activeObject.direction]+=animSpeed;
