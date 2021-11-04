@@ -2,3 +2,15 @@ body{
     background-color: darkslategrey;
     color: floralwhite;
 }
+
+a{
+    text-decoration: none;
+    color: floralwhite;
+    background-color: grey;
+}
+
+a:hover{
+   
+    color: grey;
+    background-color:  floralwhite;
+}
