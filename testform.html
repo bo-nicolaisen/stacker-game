@@ -21,7 +21,30 @@ function myFunction() {
    
   var x = document.getElementById("myForm").elements[0].value;
   var y = document.getElementById("myForm").elements[1].value;
-  document.getElementById("demo").innerHTML = "name: "+x+" password: "+y;
+
+let error=false;
+let errorString="do it";
+
+if(!x || x==errorString){
+    document.getElementById("myForm").elements[0].value=errorString;
+    error=true;
+  }
+
+  if(!y || y==errorString){
+    document.getElementById("myForm").elements[1].value=errorString;
+    error=true;
+  }
+
+
+  if(!error){
+    document.getElementById("demo").innerHTML = "name: "+x+" password: "+y;
+  }
+  else{
+    document.getElementById("demo").innerHTML ="please do as told";
+  }
+ 
+
+
 }
 </script>
 
